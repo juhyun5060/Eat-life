@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -35,6 +37,7 @@ public class AddActivity extends AppCompatActivity {
     private Button deleteButton;
     private Button saveButton;
     private ImageView addImage;
+    private ImageView backButton;
 
     private Date date;
 
@@ -51,6 +54,9 @@ public class AddActivity extends AppCompatActivity {
         deleteButton = findViewById(R.id.deleteButton);
         saveButton = findViewById(R.id.saveButton);
         addImage = findViewById(R.id.add_img_btn);
+        backButton = findViewById(R.id.backButton);
+
+        final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().build();
 
@@ -62,6 +68,14 @@ public class AddActivity extends AppCompatActivity {
         cal.setTimeInMillis(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         date = Date.valueOf(formatter.format(cal.getTime()));
+
+        // 뒤로가기 버튼
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // 저장 버튼
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -75,20 +89,11 @@ public class AddActivity extends AppCompatActivity {
                     Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
                 }
 
-                if (categorySpinner.getSelectedItemPosition() != 0 && !titleEditText.getText().toString().equals("") && !memoEditText.getText().toString().equals("")) {   //값이 저장되어있으면 update
-                    db.memoDAO().update(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));    //date 날짜 선택되는지 확인 ㄱ
-                    categorySpinner.setSelection(db.memoDAO().getCategory());
-                    titleEditText.setText(db.memoDAO().getTitle());
-                    memoEditText.setText(db.memoDAO().getMemo());
-                    Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
-                } else {
-                    db.memoDAO().insert(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
-                    categorySpinner.setSelection(db.memoDAO().getCategory());
-                    titleEditText.setText(db.memoDAO().getTitle());
-                    memoEditText.setText(db.memoDAO().getMemo());
-                    Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
-                }
-
+                db.memoDAO().insert(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                categorySpinner.setSelection(db.memoDAO().getCategory());
+                titleEditText.setText(db.memoDAO().getTitle());
+                memoEditText.setText(db.memoDAO().getMemo());
+                Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -101,6 +106,7 @@ public class AddActivity extends AppCompatActivity {
                 categorySpinner.setSelection(0);
                 titleEditText.setText("");
                 memoEditText.setText("");
+                addImage.setImageDrawable(basicImg);
                 Toast.makeText(AddActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
