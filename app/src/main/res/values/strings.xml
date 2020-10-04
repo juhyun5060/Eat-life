@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">calender</string>
+    <string name="addTitle">제목</string>
+    <string name="addMemo">오늘의 요리는 어떠셨나요?\n레시피 등 다양한 메모를 남겨보세요!\n\n\n</string>
+    <string name="addSave">저장</string>
+    <string name="addDelete">삭제</string>
 </resources>
