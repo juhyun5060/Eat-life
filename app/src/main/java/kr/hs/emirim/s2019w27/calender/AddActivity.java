@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,8 +21,6 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
@@ -60,14 +57,14 @@ public class AddActivity extends AppCompatActivity {
 
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().build();
 
+        // 저장되어있는 값 불러오기
         categorySpinner.setSelection(db.memoDAO().getCategory());
         titleEditText.setText(db.memoDAO().getTitle());
         memoEditText.setText(db.memoDAO().getMemo());
 
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        date = Date.valueOf(formatter.format(cal.getTime()));
+        // 날짜 받아오기
+        Intent intent = getIntent();
+        final String date = intent.getExtras().getString("date");
 
         // 뒤로가기 버튼
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +86,7 @@ public class AddActivity extends AppCompatActivity {
                     Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
                 }
 
-                db.memoDAO().insert(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                db.memoDAO().insert(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), date));
                 categorySpinner.setSelection(db.memoDAO().getCategory());
                 titleEditText.setText(db.memoDAO().getTitle());
                 memoEditText.setText(db.memoDAO().getMemo());

@@ -5,12 +5,11 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.sql.Date;
-
 @Dao
 public interface MemoDAO {
-    @Query("SELECT title FROM Memo")
-        // where절 추가
+
+    @Query("SELECT title FROM Memo WHERE date = :date") //date 수정
+    public Memo[] loadMemoWhere(String date);
     String getTitle();
 
     @Query("SELECT memo FROM Memo")
