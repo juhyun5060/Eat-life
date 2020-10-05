@@ -17,6 +17,9 @@ public interface MemoDAO {
     @Query("SELECT category FROM Memo")
     int getCategory();
 
+    @Query("SELECT date FROM Memo")
+    String getDate();
+
     @Insert
     void insert(Memo memo);
 

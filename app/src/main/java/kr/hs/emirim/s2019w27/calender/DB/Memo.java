@@ -10,34 +10,35 @@ import java.util.Calendar;
 @Entity
 public class Memo {
     @PrimaryKey(autoGenerate = true)
-    //private String date;
+    private int id;
+    private String date;
     private int category;
     private String title;
     private String memo;
     //private String img;
 
-    public Memo(int category, String title, String memo) {
+    public Memo(String date, int category, String title, String memo) {
+        this.date = date;
         this.category = category;
         this.title = title;
         this.memo = memo;
-        //this.date = date;
     }
 
-//    public int getNum() {
-//        return num;
-//    }
-//
-//    public void setNum(int num) {
-//        this.num = num;
-//    }
+    public int getId() {
+        return id;
+    }
 
-//    public String getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(String date) {
-//        this.date = date;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public int getCategory() {
         return category;
@@ -63,13 +64,4 @@ public class Memo {
         this.memo = memo;
     }
 
-//    @Override
-//    public String toString() {
-//        final StringBuffer sb = new StringBuffer("Memo{");
-//        sb.append("category=").append(category);
-//        sb.append(", title=").append(title);
-//        sb.append(", memo=").append(memo);
-//        sb.append("}");
-//        return sb.toString();
-//    }
 }
