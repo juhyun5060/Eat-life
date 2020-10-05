@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
@@ -131,6 +132,19 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+<!--    <GridView-->
+<!--        android:id="@+id/monthView"-->
+<!--        android:background="#90B0E0"-->
+<!--        android:paddingLeft="3dp"-->
+<!--        android:clickable="true"-->
+<!--        android:verticalSpacing="1dp"-->
+<!--        android:horizontalSpacing="1dp"-->
+<!--        android:layout_height="fill_parent"-->
+<!--        android:layout_width="fill_parent"-->
+<!--        android:numColumns="7"-->
+<!--        android:stretchMode="columnWidth"-->
+<!--        android:listSelector="@drawable/gridview_selector"-->
+<!--        tools:ignore="MissingConstraints"></GridView>-->
     <GridView
         android:id="@+id/monthView"
         android:layout_width="match_parent"
@@ -149,31 +163,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:layout_constraintVertical_bias="0.0"></GridView>
-    <!--    app:layout_constraintBottom_toTopOf="@+id/textView3"-->
-
-
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView3"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_gravity="bottom"-->
-    <!--        android:background="@color/colorOrange"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.0"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
-
-    <!-- 하단바(주황) -->
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="30dp"-->
-    <!--        android:layout_gravity="bottom"-->
-    <!--        android:background="@color/colorOrange"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/textView3"-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

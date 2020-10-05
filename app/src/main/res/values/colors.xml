@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="colorOrange" width="500dp" height="50dp">#FFFF9800</color>
+    <color name="colorOrange">#FFA24C</color>
     <color name="colorDay">#FFF597</color>
     <color name="colorYear">#9D9D9D</color>
     <color name="colorRed">#fc0303</color>
