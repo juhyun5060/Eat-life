@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(
                         getApplicationContext(),
                         AddActivity.class);
-                intent.putExtra("day", position);
+                intent.putExtra("date", position);
                 startActivity(intent);
             }
         });
