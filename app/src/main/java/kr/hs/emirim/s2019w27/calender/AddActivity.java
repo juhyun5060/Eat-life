@@ -85,7 +85,7 @@ public class AddActivity extends AppCompatActivity {
                 db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
                 categorySpinner.setSelection(db.memoDAO().getCategory());
                 titleEditText.setText(db.memoDAO().getTitle());
-                memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
+                memoEditText.setText(db.memoDAO().getMemo() + "\n\n" + db.memoDAO().getDate());
                 Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
 
             }
