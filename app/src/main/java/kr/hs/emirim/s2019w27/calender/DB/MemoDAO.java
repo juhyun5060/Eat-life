@@ -8,8 +8,7 @@ import androidx.room.Update;
 @Dao
 public interface MemoDAO {
 
-    @Query("SELECT title FROM Memo WHERE date = :date") //date 수정
-    public Memo[] loadMemoWhere(String date);
+    @Query("SELECT title FROM Memo") //date 수정
     String getTitle();
 
     @Query("SELECT memo FROM Memo")

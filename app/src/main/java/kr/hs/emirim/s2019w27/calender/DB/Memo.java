@@ -10,26 +10,34 @@ import java.util.Calendar;
 @Entity
 public class Memo {
     @PrimaryKey(autoGenerate = true)
-    private String date;
+    //private String date;
     private int category;
     private String title;
     private String memo;
     //private String img;
 
-    public Memo(int category, String title, String memo, String date) {
+    public Memo(int category, String title, String memo) {
         this.category = category;
         this.title = title;
         this.memo = memo;
-        this.date = date;
+        //this.date = date;
     }
 
-    public String getDate() {
-        return date;
-    }
+//    public int getNum() {
+//        return num;
+//    }
+//
+//    public void setNum(int num) {
+//        this.num = num;
+//    }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
+//    public String getDate() {
+//        return date;
+//    }
+//
+//    public void setDate(String date) {
+//        this.date = date;
+//    }
 
     public int getCategory() {
         return category;
