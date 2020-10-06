@@ -143,8 +143,8 @@
 <!--        android:layout_width="fill_parent"-->
 <!--        android:numColumns="7"-->
 <!--        android:stretchMode="columnWidth"-->
-<!--        android:listSelector="@drawable/gridview_selector"-->
 <!--        tools:ignore="MissingConstraints"></GridView>-->
+
     <GridView
         android:id="@+id/monthView"
         android:layout_width="match_parent"
@@ -163,6 +163,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:layout_constraintVertical_bias="0.0"></GridView>
+
 <!--        app:layout_constraintBottom_toTopOf="@+id/textView3"-->
 
+<!--    <GridView-->
+<!--        android:id="@+id/monthView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="fill_parent"-->
+
+
+<!--        android:layout_marginTop="116dp"-->
+<!--        android:background="@color/colorWhite"-->
+<!--        android:numColumns="7"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"-->
+<!--        tools:layout_editor_absoluteX="0dp"></GridView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>
