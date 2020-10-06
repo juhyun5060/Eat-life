@@ -36,10 +36,6 @@ public class AddActivity extends AppCompatActivity {
     private ImageView addImage;
     private ImageView backButton;
 
-    private Date date;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,10 +82,10 @@ public class AddActivity extends AppCompatActivity {
                     Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
                 }
 
-                db.memoDAO().insert(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
                 categorySpinner.setSelection(db.memoDAO().getCategory());
                 titleEditText.setText(db.memoDAO().getTitle());
-                memoEditText.setText(db.memoDAO().getMemo());
+                memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
                 Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
 
             }
