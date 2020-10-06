@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,9 +20,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Date;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
@@ -105,7 +107,7 @@ public class AddActivity extends AppCompatActivity {
         });
 
         // 이미지 추가 버튼
-        addImage.setOnClickListener(new View.OnClickListener() {
+       addImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {    // ACTION_PICK 연결로 갤러리 불러오기
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -119,12 +121,22 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(getBaseContext(), "resultCode : " + resultCode, Toast.LENGTH_SHORT).show();
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
+                    // Uri에서 이미지 이름 얻어옴
+                    String name_str = getImageNameToUri(data.getData());
                     // 이미지 데이터를 비트맵으로 받아옴
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
+
+//                    //
+//                    File imageFile = new File(image_bitmap.toString());
+//                    ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+//                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+//                    int exifDegree = exifOrientationToDegrees(orientation);//
+//                    image_bitmap = rotate(image_bitmap, orientation);
+//                    //
+
                     // 배치해놓은 ImageView에 set
                     addImage.setImageBitmap(image_bitmap);
                 } catch (FileNotFoundException e) {
@@ -135,20 +147,73 @@ public class AddActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
+
         }
     }
 
+    public static Bitmap rotate(Bitmap bitmap, int orientation) {
+        Matrix matrix = new Matrix();
+        switch(orientation) {
+            case ExifInterface.ORIENTATION_NORMAL :
+                return bitmap;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL :
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180 :
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return bitmap;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            bitmap.recycle();
+            return bmRotated;
+        } catch(OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int exifOrientationToDegrees(int exifOrientation) {
+        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
+            return 90;
+        } else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
+            return 180;
+        } else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
+            return 270;
+        }
+        return 0;
+    }
+
     public String getImageNameToUri(Uri data) {
-        String[] proj = { MediaStore.Images.Media.DATA };
+        String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(data, proj, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 
         cursor.moveToFirst();
 
         String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
 
         return imgName;
     }
-
 }
