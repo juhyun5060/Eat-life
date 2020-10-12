@@ -3,7 +3,6 @@ package kr.hs.emirim.s2019w27.calender.DB;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
 
 @Dao
 public interface MemoDAO {
@@ -20,15 +19,12 @@ public interface MemoDAO {
     @Query("SELECT date FROM Memo")
     String getDate();
 
+    @Query("SELECT imgUri FROM Memo")
+    String getUri();
+
     @Insert
     void insert(Memo memo);
 
-    @Update
-    void update(Memo memo);
-
     @Query("DELETE FROM memo")
     void deleteAll();
-
-    //    @Update
-//    void update(Memo memo);
 }

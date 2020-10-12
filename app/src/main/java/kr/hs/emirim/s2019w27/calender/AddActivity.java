@@ -1,16 +1,22 @@
 package kr.hs.emirim.s2019w27.calender;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 import androidx.room.Room;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,15 +26,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
 
 public class AddActivity extends AppCompatActivity {
-    final int REQ_CODE_SELECT_IMAGE = 100;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
+    final int REQ_CODE_SELECT_IMAGE = 1;
+
+    Uri uri;
 
     private Spinner categorySpinner;
     private EditText titleEditText;
@@ -38,8 +47,10 @@ public class AddActivity extends AppCompatActivity {
     private ImageView addImage;
     private ImageView backButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
@@ -53,12 +64,35 @@ public class AddActivity extends AppCompatActivity {
 
         final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().build();
+        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Explain to the user why we need to read the contacts
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+            // app-defined int constant that should be quite unique
+
+            return;
+        }
 
         // 저장되어있는 값 불러오기
         categorySpinner.setSelection(db.memoDAO().getCategory());
         titleEditText.setText(db.memoDAO().getTitle());
         memoEditText.setText(db.memoDAO().getMemo());
+        if (db.memoDAO().getUri() != null) {
+            setImage(Uri.parse(db.memoDAO().getUri()));
+        } else {
+            addImage.setImageDrawable(basicImg);
+        }
 
         // 날짜 받아오기
         Intent intent = getIntent();
@@ -76,15 +110,15 @@ public class AddActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (categorySpinner.getSelectedItemPosition() != 0) {
+                if (categorySpinner.getSelectedItemPosition() == 0) {
                     Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (!titleEditText.getText().toString().equals("")) {
+                } else if (titleEditText.getText().toString().equals("")) {
                     Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (!memoEditText.getText().toString().equals("")) {
+                } else if (memoEditText.getText().toString().equals("")) {
                     Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
-                }
+                }   // 수정필요
 
-                db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
                 categorySpinner.setSelection(db.memoDAO().getCategory());
                 titleEditText.setText(db.memoDAO().getTitle());
                 memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
@@ -116,6 +150,8 @@ public class AddActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
+
+
     }
 
     @Override
@@ -124,31 +160,12 @@ public class AddActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    // Uri에서 이미지 이름 얻어옴
-                    String name_str = getImageNameToUri(data.getData());
-                    // 이미지 데이터를 비트맵으로 받아옴
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-
-//                    //
-//                    File imageFile = new File(image_bitmap.toString());
-//                    ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
-//                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//                    int exifDegree = exifOrientationToDegrees(orientation);//
-//                    image_bitmap = rotate(image_bitmap, orientation);
-//                    //
-
-                    // 배치해놓은 ImageView에 set
-                    addImage.setImageBitmap(image_bitmap);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    uri = data.getData();
+                    setImage(uri);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-
         }
     }
 
@@ -216,4 +233,25 @@ public class AddActivity extends AppCompatActivity {
 
         return imgName;
     }
+
+    public String getImagePathFromURI(Uri data) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader cursorLoader = new CursorLoader(this, data, proj,null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imgPath = cursor.getString(column_index);
+        return imgPath;
+    }
+
+    private void setImage(Uri uri) {
+        try {
+            InputStream in = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+            addImage.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
