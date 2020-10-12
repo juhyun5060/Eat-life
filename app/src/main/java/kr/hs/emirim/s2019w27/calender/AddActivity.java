@@ -118,12 +118,20 @@ public class AddActivity extends AppCompatActivity {
                     Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
                 }   // 수정필요
 
-                db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
-                categorySpinner.setSelection(db.memoDAO().getCategory());
-                titleEditText.setText(db.memoDAO().getTitle());
-                memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
-                Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
-
+                if(db.memoDAO().getTitle() == null) {
+                    db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
+                    categorySpinner.setSelection(db.memoDAO().getCategory());
+                    titleEditText.setText(db.memoDAO().getTitle());
+                    memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
+                    Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
+                } else {
+                    db.memoDAO().deleteAll();
+                    db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
+                    categorySpinner.setSelection(db.memoDAO().getCategory());
+                    titleEditText.setText(db.memoDAO().getTitle());
+                    memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
+                    Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
