@@ -1,11 +1,8 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 @Entity
 public class Memo {
@@ -23,6 +20,13 @@ public class Memo {
         this.title = title;
         this.memo = memo;
         this.imgUri = imgUri;
+    }
+
+    @Ignore
+    public Memo(int category, String title, String memo) {
+        this.category = category;
+        this.title = title;
+        this.memo = memo;
     }
 
     public int getId() {

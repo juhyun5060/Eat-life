@@ -1,7 +1,10 @@
 package kr.hs.emirim.s2019w27.calender;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
@@ -12,6 +15,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;

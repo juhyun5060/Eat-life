@@ -14,7 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,8 +37,7 @@ public class AddActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
     final int REQ_CODE_SELECT_IMAGE = 1;
 
-    Uri uri;
-
+    private Uri uri;
     private Spinner categorySpinner;
     private EditText titleEditText;
     private EditText memoEditText;
@@ -66,22 +65,16 @@ public class AddActivity extends AppCompatActivity {
 
         final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
 
+        // 갤러리 접근 권한
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-            // Should we show an explanation?
             if (shouldShowRequestPermissionRationale(
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Explain to the user why we need to read the contacts
             }
 
             requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-
-            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
-            // app-defined int constant that should be quite unique
-
-            return;
         }
 
         // 저장되어있는 값 불러오기
@@ -96,7 +89,8 @@ public class AddActivity extends AppCompatActivity {
 
         // 날짜 받아오기
         Intent intent = getIntent();
-        final String date = intent.getExtras().getString("date");
+//        final String date = intent.getExtras().getString("date");
+        final String date = "date";
 
         // 뒤로가기 버튼
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -110,26 +104,26 @@ public class AddActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (categorySpinner.getSelectedItemPosition() == 0) {
-                    Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (titleEditText.getText().toString().equals("")) {
-                    Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (memoEditText.getText().toString().equals("")) {
-                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
-                }   // 수정필요
+//                if (categorySpinner.getSelectedItemPosition() == 0) {
+//                    Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
+//                } else if (titleEditText.getText().toString().equals("")) {
+//                    Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
+//                } else if (memoEditText.getText().toString().equals("")) {
+//                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
+//                }   // 수정필요
 
                 if(db.memoDAO().getTitle() == null) {
                     db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
-                    memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
+                    memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    db.memoDAO().deleteAll();
-                    db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
+//                    db.memoDAO().deleteAll();
+                    db.memoDAO().updateAll(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
-                    memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
+                    memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -158,7 +152,6 @@ public class AddActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
-
 
     }
 
@@ -248,3 +241,4 @@ public class AddActivity extends AppCompatActivity {
 }
 
 // 사진 선택, 데이터 불러오기 너무 느림 -> 해결하세요
+// 데이터 저장 후 이미지 말고 다른 것 수정할 시 이미지 bitmap nullPoint 오류 -> 수정
