@@ -1,16 +1,22 @@
 package kr.hs.emirim.s2019w27.calender;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.loader.content.CursorLoader;
 import androidx.room.Room;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.ExifInterface;
+import androidx.exifinterface.media.ExifInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -20,16 +26,18 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
 
 public class AddActivity extends AppCompatActivity {
-    final int REQ_CODE_SELECT_IMAGE = 100;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
+    final int REQ_CODE_SELECT_IMAGE = 1;
 
+    private Uri uri;
     private Spinner categorySpinner;
     private EditText titleEditText;
     private EditText memoEditText;
@@ -38,8 +46,10 @@ public class AddActivity extends AppCompatActivity {
     private ImageView addImage;
     private ImageView backButton;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
@@ -53,16 +63,34 @@ public class AddActivity extends AppCompatActivity {
 
         final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().build();
+        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+
+        // 갤러리 접근 권한
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (shouldShowRequestPermissionRationale(
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            }
+
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        }
 
         // 저장되어있는 값 불러오기
         categorySpinner.setSelection(db.memoDAO().getCategory());
         titleEditText.setText(db.memoDAO().getTitle());
         memoEditText.setText(db.memoDAO().getMemo());
+        if (db.memoDAO().getUri() != null) {
+            setImage(Uri.parse(db.memoDAO().getUri()));
+        } else {
+            addImage.setImageDrawable(basicImg);
+        }
 
         // 날짜 받아오기
         Intent intent = getIntent();
-        final String date = intent.getExtras().getString("date");
+//        final String date = intent.getExtras().getString("date");
+        final String date = "date";
 
         // 뒤로가기 버튼
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -76,20 +104,28 @@ public class AddActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (categorySpinner.getSelectedItemPosition() != 0) {
-                    Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (!titleEditText.getText().toString().equals("")) {
-                    Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
-                } else if (!memoEditText.getText().toString().equals("")) {
-                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
+//                if (categorySpinner.getSelectedItemPosition() == 0) {
+//                    Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
+//                } else if (titleEditText.getText().toString().equals("")) {
+//                    Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
+//                } else if (memoEditText.getText().toString().equals("")) {
+//                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
+//                }   // 수정필요
+
+                if(db.memoDAO().getTitle() == null) {
+                    db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
+                    categorySpinner.setSelection(db.memoDAO().getCategory());
+                    titleEditText.setText(db.memoDAO().getTitle());
+                    memoEditText.setText(db.memoDAO().getMemo());
+                    Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
+                } else {
+//                    db.memoDAO().deleteAll();
+                    db.memoDAO().updateAll(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                    categorySpinner.setSelection(db.memoDAO().getCategory());
+                    titleEditText.setText(db.memoDAO().getTitle());
+                    memoEditText.setText(db.memoDAO().getMemo());
+                    Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
-
-                db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
-                categorySpinner.setSelection(db.memoDAO().getCategory());
-                titleEditText.setText(db.memoDAO().getTitle());
-                memoEditText.setText(db.memoDAO().getMemo() + "\n" + db.memoDAO().getDate());
-                Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -116,6 +152,7 @@ public class AddActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
+
     }
 
     @Override
@@ -124,96 +161,84 @@ public class AddActivity extends AppCompatActivity {
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == Activity.RESULT_OK) {
                 try {
-                    // Uri에서 이미지 이름 얻어옴
-                    String name_str = getImageNameToUri(data.getData());
-                    // 이미지 데이터를 비트맵으로 받아옴
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-
-//                    //
-//                    File imageFile = new File(image_bitmap.toString());
-//                    ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
-//                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-//                    int exifDegree = exifOrientationToDegrees(orientation);//
-//                    image_bitmap = rotate(image_bitmap, orientation);
-//                    //
-
-                    // 배치해놓은 ImageView에 set
-                    addImage.setImageBitmap(image_bitmap);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    uri = data.getData();
+                    setImage(uri);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
-
         }
     }
+    public String getImagePathFromURI(Uri data) {
+        String[] proj = {MediaStore.Images.Media.DATA};
+        CursorLoader cursorLoader = new CursorLoader(this, data, proj,null, null, null);
+        Cursor cursor = cursorLoader.loadInBackground();
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imgPath = cursor.getString(column_index);
 
-    public static Bitmap rotate(Bitmap bitmap, int orientation) {
-        Matrix matrix = new Matrix();
-        switch(orientation) {
-            case ExifInterface.ORIENTATION_NORMAL :
-                return bitmap;
-            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL :
-                matrix.setScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180 :
-                matrix.setRotate(180);
-                break;
-            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
-                matrix.setRotate(180);
-                matrix.postScale(-1, 1);
-            case ExifInterface.ORIENTATION_TRANSPOSE:
-                matrix.setRotate(90);
-                matrix.postScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                matrix.setRotate(90);
-                break;
-            case ExifInterface.ORIENTATION_TRANSVERSE:
-                matrix.setRotate(-90);
-                matrix.postScale(-1, 1);
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                matrix.setRotate(-90);
-                break;
-            default:
-                return bitmap;
-        }
+        return imgPath;
+    }
+
+    private void setImage(Uri uri) {
         try {
-            Bitmap bmRotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            bitmap.recycle();
-            return bmRotated;
-        } catch(OutOfMemoryError e) {
+            InputStream in = getContentResolver().openInputStream(uri);
+            Bitmap bitmap = BitmapFactory.decodeStream(in);
+
+            String imgPath = getImagePathFromURI(uri);
+            int degree = getExifOrientation(imgPath);
+            bitmap = getRotatedBitmap(bitmap, degree);
+
+            addImage.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return null;
         }
     }
 
-    public int exifOrientationToDegrees(int exifOrientation) {
-        if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if(exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
+    private int getExifOrientation(String filePath) {
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (exif != null) {
+            int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+            if (orientation != -1) {
+                switch (orientation) {
+                    case ExifInterface.ORIENTATION_ROTATE_90:
+                        return 90;
+
+                    case ExifInterface.ORIENTATION_ROTATE_180:
+                        return 180;
+
+                    case ExifInterface.ORIENTATION_ROTATE_270:
+                        return 270;
+                }
+            }
         }
         return 0;
     }
 
-    public String getImageNameToUri(Uri data) {
-        String[] proj = {MediaStore.Images.Media.DATA};
-        Cursor cursor = managedQuery(data, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-        cursor.moveToFirst();
-
-        String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/") + 1);
-
-        return imgName;
+    private Bitmap getRotatedBitmap(Bitmap bitmap, int degree) {
+        if (degree != 0 && bitmap != null) {
+            Matrix matrix = new Matrix();
+            matrix.setRotate(degree, (float) bitmap.getWidth() / 2, (float) bitmap.getHeight() / 2);
+            try {
+                Bitmap tmpBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                if (bitmap != tmpBitmap) {
+                    bitmap.recycle();
+                    bitmap = tmpBitmap;
+                }
+            } catch (OutOfMemoryError e) {
+                e.printStackTrace();
+            }
+        }
+        return bitmap;
     }
+
 }
+
+// 사진 선택, 데이터 불러오기 너무 느림 -> 해결하세요
+// 데이터 저장 후 이미지 말고 다른 것 수정할 시 이미지 bitmap nullPoint 오류 -> 수정
