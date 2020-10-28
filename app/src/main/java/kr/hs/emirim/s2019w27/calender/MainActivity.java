@@ -14,17 +14,16 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     GridView monthView;
     TextView monthText;
     CalendarAdapter adapter;
     private String TAG = "Eat-Life Start";
-
-    // 해상도 구하기
-    int width;
-    int height;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,16 +104,5 @@ public class MainActivity extends AppCompatActivity {
         }else if ((curMonth+1)==12){
             monthText.setText("DEC "+curYear);
         }
-    }
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {   //해상도
-        monthView = findViewById(R.id.monthView);
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        width = monthView.getWidth();
-        height = monthView.getHeight();
-//        monthView.setWidth(width);
-        Log.d(TAG, ">>> size.x : " + size.x + ", size.y : " + size.y);
     }
 }

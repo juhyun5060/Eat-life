@@ -82,12 +82,11 @@ public class CalendarAdapter extends BaseAdapter {
         }else if(position%7==6) {                            //SAT
             view.setTextColor(Color.BLUE);
         }
-        GridView.LayoutParams params = new GridView.LayoutParams( GridView.LayoutParams.MATCH_PARENT,225);
+        GridView.LayoutParams params = new GridView.LayoutParams( GridView.LayoutParams.MATCH_PARENT,100);
         view.setLayoutParams(params);
 
         return view;
     }
-
     @Override
     public Object getItem(int position) {
         return items[position];

@@ -8,14 +8,14 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout4"
-        android:layout_width="0dp"
+        android:id="@+id/monthViewBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="13dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/daysBar"
+        >
 
         <Button
             android:id="@+id/previousBtn"
@@ -49,17 +49,15 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
+        android:id="@+id/daysBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorDay"
         android:orientation="horizontal"
-        android:paddingTop="9dp"
-        android:paddingBottom="9dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout4">
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        app:layout_constraintVertical_bias="0.2"
+        app:layout_constraintTop_toBottomOf="@+id/monthViewBar">
 
         <TextView
             android:layout_width="0dp"
@@ -68,7 +66,7 @@
             android:gravity="center_horizontal"
             android:text="SUN"
             android:textColor="@color/colorRed"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,7 +76,7 @@
             android:gravity="center_horizontal"
             android:text="MON"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -88,7 +86,7 @@
             android:gravity="center_horizontal"
             android:text="TUE"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -98,7 +96,7 @@
             android:gravity="center_horizontal"
             android:text="WED"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -108,7 +106,7 @@
             android:gravity="center_horizontal"
             android:text="THU"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -118,7 +116,7 @@
             android:gravity="center_horizontal"
             android:text="PRI"
             android:textColor="@color/colorBlack"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
 
         <TextView
@@ -128,53 +126,39 @@
             android:gravity="center_horizontal"
             android:text="SAT"
             android:textColor="@color/colorBlue"
-            android:textSize="15dp"
+            android:textSize="16dp"
             android:textStyle="bold" />
     </LinearLayout>
 
-<!--    <GridView-->
-<!--        android:id="@+id/monthView"-->
-<!--        android:background="#90B0E0"-->
-<!--        android:paddingLeft="3dp"-->
-<!--        android:clickable="true"-->
-<!--        android:verticalSpacing="1dp"-->
-<!--        android:horizontalSpacing="1dp"-->
-<!--        android:layout_height="fill_parent"-->
-<!--        android:layout_width="fill_parent"-->
-<!--        android:numColumns="7"-->
-<!--        android:stretchMode="columnWidth"-->
-<!--        tools:ignore="MissingConstraints"></GridView>-->
 
     <GridView
         android:id="@+id/monthView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
         android:layout_margin="8dp"
+        android:background="@color/colorWhite"
 
-        android:horizontalSpacing="1dp"
         android:numColumns="7"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="1dp"
-
-
+        android:listSelector="@drawable/gridview_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.0"></GridView>
+        app:layout_constraintVertical_bias="0.4"
 
-<!--        app:layout_constraintBottom_toTopOf="@+id/textView3"-->
+        ></GridView>
 
-<!--    <GridView-->
-<!--        android:id="@+id/monthView"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="fill_parent"-->
+    <!--하단 색상바 -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="#FF9800"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-<!--        android:layout_marginTop="116dp"-->
-<!--        android:background="@color/colorWhite"-->
-<!--        android:numColumns="7"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"-->
-<!--        tools:layout_editor_absoluteX="0dp"></GridView>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

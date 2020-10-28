@@ -37,7 +37,7 @@ public class CalendarView extends AppCompatTextView {
             setGravity(Gravity.LEFT);
             setTextColor(Color.BLACK);
             setTextSize(17);
-            setPadding(20,0,0,0);
+            setPadding(14,8,0,0);
         }else{
             setText("");
         }
