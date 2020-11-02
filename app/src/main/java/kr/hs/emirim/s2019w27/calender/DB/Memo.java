@@ -22,13 +22,6 @@ public class Memo {
         this.imgUri = imgUri;
     }
 
-    @Ignore
-    public Memo(int category, String title, String memo) {
-        this.category = category;
-        this.title = title;
-        this.memo = memo;
-    }
-
     public int getId() {
         return id;
     }
