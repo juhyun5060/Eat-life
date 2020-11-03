@@ -12,33 +12,40 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+        <Button
+            android:id="@+id/previousBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/back"
+            android:gravity="bottom"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="5dp"/>
         <TextView
-            android:id="@+id/tv_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:background="@drawable/back"/>
-        <TextView
-            android:id="@+id/tv_current_month"
+            android:id="@+id/calendar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp"
             android:text="2020  08"
             android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/tv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:background="@drawable/next"/>
+        <Button
+            android:id="@+id/nextBtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/next"
+            android:gravity="bottom"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:orientation="vertical">
-        
+
+        <!--Day-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -109,11 +116,14 @@
                 android:textSize="15dp"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <!--CALENDAR-->
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="15dp"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:numColumns="7"
             android:listSelector="@color/colorOrange">
