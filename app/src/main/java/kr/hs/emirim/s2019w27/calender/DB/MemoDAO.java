@@ -26,8 +26,11 @@ public interface MemoDAO {
     @Insert
     void insert(Memo memo);
 
-//    @Query("UPDATE Memo SET category = '?', title = '?', memo = '?'")
-//    void updateModify(Memo memo);
+    @Query("UPDATE Memo SET category =  :category, title = :title, memo = :memo")
+    void updateModify(int category, String title, String memo);
+
+    @Query("UPDATE Memo SET imgUri =  :imgUri")
+    void updateUri(String imgUri);
 
     @Update
     void updateAll(Memo memo);
