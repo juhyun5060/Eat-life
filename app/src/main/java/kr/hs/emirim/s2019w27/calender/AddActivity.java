@@ -32,6 +32,7 @@ import java.io.InputStream;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
+import kr.hs.emirim.s2019w27.calender.R;
 
 public class AddActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
@@ -112,19 +113,15 @@ public class AddActivity extends AppCompatActivity {
 //                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
 //                }   // 수정필요
 
-                if(db.memoDAO().getTitle() == null && db.memoDAO().getMemo() == null && db.memoDAO().getUri() == null && db.memoDAO().getDate() == null) {
+                if(db.memoDAO().getTitle() == null) {
                     db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
                     memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    if((uri != null) && (!uri.equals(db.memoDAO().getUri()))) {  //uri에 값이 있지만 db에 저장되어있는 값과 다를 때 -> 사진이 변경되었을 때
-                        db.memoDAO().deleteAll();
-                        db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
-                    } else {    // 사진 이외의 것이 변경되었을 때
-                        db.memoDAO().updateModify(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString());
-                    }
+                    db.memoDAO().deleteAll();
+//                    db.memoDAO().updateAll(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
                     memoEditText.setText(db.memoDAO().getMemo());
@@ -137,7 +134,7 @@ public class AddActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.memoDAO().deleteAll();
+                db.memoDAO().deleteAll();    // delete 수정하세영
                 categorySpinner.setSelection(0);
                 titleEditText.setText("");
                 memoEditText.setText("");
@@ -194,11 +191,7 @@ public class AddActivity extends AppCompatActivity {
             bitmap = getRotatedBitmap(bitmap, degree);
 
             addImage.setImageBitmap(bitmap);
-
-            in.close();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -3,41 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
-    android:background="#ffffff">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#ffffff">
 
-        <Button
+        <ImageButton
             android:id="@+id/previousBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:background="@drawable/back"
-            android:gravity="bottom"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
         <TextView
-            android:id="@+id/calendar_title"
+            android:id="@+id/currentDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:text="2020  08"
-            android:textSize="20sp"/>
-        <Button
+            android:gravity="center"
+            android:layout_marginTop="4dp"
+            android:text="CurrentDate"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_weight="3"/>
+        <ImageButton
             android:id="@+id/nextBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:background="@drawable/next"
-            android:gravity="bottom"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"/>
+            android:layout_margin="10dp"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,72 +46,81 @@
         <!--Day-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorDay"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="@color/colorDay">
+
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="SUN"
                 android:textColor="@color/colorRed"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="MON"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="TUE"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="WED"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="THU"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="FRI"
                 android:textColor="@color/colorBlack"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
                 android:text="SAT"
                 android:textColor="@color/colorBlue"
-                android:textSize="15dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
         </LinearLayout>
 
@@ -121,12 +128,11 @@
         <GridView
             android:id="@+id/gridview"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="15dp"
-            android:layout_gravity="center"
             android:layout_weight="1"
             android:numColumns="7"
-            android:listSelector="@color/colorOrange">
+            android:listSelector="@drawable/gv_selector">
         </GridView>
     </LinearLayout>
 </LinearLayout>
