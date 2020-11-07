@@ -25,11 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_weight="3"
             android:layout_marginTop="4dp"
+
             android:text="CurrentDate"
+            android:textColor="@color/colorBlack"
             android:textStyle="bold"
-            android:textSize="25sp"
-            android:layout_weight="3"/>
+            android:textSize="30sp"/>
         <ImageButton
             android:id="@+id/nextBtn"
             android:layout_width="30dp"
@@ -48,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
             android:background="@color/colorDay">
 
             <TextView
