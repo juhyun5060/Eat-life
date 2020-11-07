@@ -62,7 +62,8 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
             dayOfMonth += 7;
         }
 
-        calendarTitle_currentDate.setText((thisMonthCalendar.get(calendar.MONTH) + 1) + " " + thisMonthCalendar.get(Calendar.YEAR));
+//        calendarTitle_currentDate.setText((thisMonthCalendar.get(calendar.MONTH) + 1) + " " + thisMonthCalendar.get(Calendar.YEAR));
+        setMonthText();
 
         DayInfo day;
         Log.e("DayOfMonth", dayOfMonth + "");
@@ -82,17 +83,51 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         gridView.setAdapter(adapter);
     }
 
+    private void setMonthText() {
+        int curYear = thisMonthCalendar.get(Calendar.YEAR);
+        int curMonth = thisMonthCalendar.get(Calendar.MONTH);
+
+        // 월, 년 표시
+        if ((curMonth+1)==1){
+            calendarTitle_currentDate.setText("JAN "+curYear);
+        }else if ((curMonth+1)==2){
+            calendarTitle_currentDate.setText("FEB "+curYear);
+        }else if ((curMonth+1)==3){
+            calendarTitle_currentDate.setText("MAR "+curYear);
+        }else if ((curMonth+1)==4){
+            calendarTitle_currentDate.setText("APR "+curYear);
+        }else if ((curMonth+1)==5){
+            calendarTitle_currentDate.setText("MAY "+curYear);
+        }else if ((curMonth+1)==6){
+            calendarTitle_currentDate.setText("JUN "+curYear);
+        }else if ((curMonth+1)==7){
+            calendarTitle_currentDate.setText("JUL "+curYear);
+        }else if ((curMonth+1)==8){
+            calendarTitle_currentDate.setText("AUG "+curYear);
+        }else if ((curMonth+1)==9){
+            calendarTitle_currentDate.setText("SEP "+curYear);
+        }else if ((curMonth+1)==10){
+            calendarTitle_currentDate.setText("OCT "+curYear);
+        }else if ((curMonth+1)==11){
+            calendarTitle_currentDate.setText("NOV "+curYear);
+        }else if ((curMonth+1)==12){
+            calendarTitle_currentDate.setText("DEC "+curYear);
+        }
+    }
+
     private Calendar getLastMonth(Calendar calendar) {
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), 1);
         calendar.add(Calendar.MONTH, -1);
-        calendarTitle_currentDate.setText(thisMonthCalendar.get(Calendar.YEAR) + "year" + (thisMonthCalendar.get(Calendar.MONTH) + 1) + "month");
+//        calendarTitle_currentDate.setText(thisMonthCalendar.get(Calendar.YEAR) + "year" + (thisMonthCalendar.get(Calendar.MONTH) + 1) + "month");
+        setMonthText();
         return calendar;
     }
 
     private Calendar getNexMonth(Calendar calendar) {
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(calendar.MONTH), 1);
         calendar.add(Calendar.MONTH, +1);
-        calendarTitle_currentDate.setText(thisMonthCalendar.get(Calendar.YEAR) + "year" + (thisMonthCalendar.get(Calendar.MONTH) + 1) + "month");
+//        calendarTitle_currentDate.setText(thisMonthCalendar.get(Calendar.YEAR) + "year" + (thisMonthCalendar.get(Calendar.MONTH) + 1) + "month");
+        setMonthText();
 
         return calendar;
     }
