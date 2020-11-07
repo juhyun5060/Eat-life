@@ -4,7 +4,7 @@
     android:id="@+id/day_background"
     android:layout_width="45dp"
     android:layout_height="70dp"
-    android:background="@drawable/bg_rect_border">
+    android:background="@drawable/bg_day">
 
     <TextView
         android:id="@+id/tv_day"
