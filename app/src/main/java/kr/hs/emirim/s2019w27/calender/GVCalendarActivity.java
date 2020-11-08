@@ -18,8 +18,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     private ArrayList<DayInfo> dayList;
     private CalendarAdapter adapter;
     private ImageButton previousBtn, nextBtn;
-
-    Calendar thisMonthCalendar;
+    private Calendar thisMonthCalendar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
