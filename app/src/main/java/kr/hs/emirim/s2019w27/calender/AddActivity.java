@@ -32,7 +32,6 @@ import java.io.InputStream;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
-import kr.hs.emirim.s2019w27.calender.R;
 
 public class AddActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
@@ -140,6 +139,9 @@ public class AddActivity extends AppCompatActivity {
                 memoEditText.setText("");
                 addImage.setImageDrawable(basicImg);
                 Toast.makeText(AddActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
             }
         });
 

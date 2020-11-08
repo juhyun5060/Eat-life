@@ -6,4 +6,5 @@ import androidx.room.RoomDatabase;
 @Database(entities = {Memo.class}, version = 4, exportSchema = true)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MemoDAO memoDAO();
+
 }
