@@ -67,6 +67,17 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         DayInfo day;
         Log.e("DayOfMonth", dayOfMonth + "");
 
+        //이전 달의 날짜를 공백으로 추가해 달력 위치를 맞춤
+        for(int i = 0; i< dayOfMonth - 1; i++){
+            String date = "";
+            day = new DayInfo();
+            day.setDay(String.valueOf(date));
+            day.setInMonth(true);
+
+            dayList.add(day);
+        }
+
+
         for (int i = 1; i <= thisMonthLastDay; i++) {
             day = new DayInfo();
             day.setDay(Integer.toString(i));
