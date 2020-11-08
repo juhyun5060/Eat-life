@@ -18,7 +18,15 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     private ArrayList<DayInfo> dayList;
     private CalendarAdapter adapter;
     private ImageButton previousBtn, nextBtn;
-    private Calendar thisMonthCalendar;
+    private Calendar Mcalendar;
+
+//        // 오늘에 날짜를 세팅 해준다.
+//        long now = System.currentTimeMillis();
+//        final Date date = new Date(now);
+//        //연,월,일을 따로 저장
+//        SimpleDateFormat YearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
+//        SimpleDateFormat MonthFormat = new SimpleDateFormat("mm", Locale.KOREA);
+//        SimpleDateFormat DayFormat = new SimpleDateFormat("dd", Locale.KOREA);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,14 +43,17 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         previousBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         gridView.setOnItemClickListener(this);
+
     }
 
     @Override
     protected void onResume() {
+        //Mcalendar에 년도 월 일 등을 set 하는 부분이 안보여요....
         super.onResume();
-        thisMonthCalendar = Calendar.getInstance();
-        thisMonthCalendar.set(Calendar.DAY_OF_MONTH, 1);
-        getCalendar(thisMonthCalendar);
+        Mcalendar = Calendar.getInstance();
+//        int curDay = Mcalendar.get(Calendar.DAY_OF_MONTH);
+        Mcalendar.set(Calendar.DAY_OF_MONTH, 1);    //기본값 1로 설정
+        getCalendar(Mcalendar);
     }
 
     private void getCalendar(Calendar calendar) {
@@ -77,7 +88,6 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
             dayList.add(day);
         }
 
-
         for (int i = 1; i <= thisMonthLastDay; i++) {
             day = new DayInfo();
             day.setDay(Integer.toString(i));
@@ -94,8 +104,8 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     }
 
     private void setMonthText() {
-        int curYear = thisMonthCalendar.get(Calendar.YEAR);
-        int curMonth = thisMonthCalendar.get(Calendar.MONTH);
+        int curYear = Mcalendar.get(Calendar.YEAR);
+        int curMonth = Mcalendar.get(Calendar.MONTH);
 
         // 월, 년 표시
         if ((curMonth+1)==1){
@@ -133,7 +143,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         return calendar;
     }
 
-    private Calendar getNexMonth(Calendar calendar) {
+    private Calendar getNextMonth(Calendar calendar) {
         calendar.set(calendar.get(Calendar.YEAR), calendar.get(calendar.MONTH), 1);
         calendar.add(Calendar.MONTH, +1);
 //        calendarTitle_currentDate.setText(thisMonthCalendar.get(Calendar.YEAR) + "year" + (thisMonthCalendar.get(Calendar.MONTH) + 1) + "month");
@@ -144,17 +154,20 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick (AdapterView < ? > parent, View view, int position, long id){
-        //day 값 수정필요
-        int selectYear = thisMonthCalendar.get(Calendar.YEAR);
-        int selectMonth = thisMonthCalendar.get(Calendar.MONTH);
-        int selectDay = thisMonthCalendar.get(Calendar.DAY_OF_MONTH);
+        int selectYear = Mcalendar.get(Calendar.YEAR);
+        int selectMonth = Mcalendar.get(Calendar.MONTH);
+        int selectDay = Mcalendar.get(Calendar.DAY_OF_MONTH);
+//        int curDay = Mcalendar.get(Calendar.DAY_OF_MONTH);
+//        Mcalendar.set(Calendar.DAY_OF_MONTH, dayList.getItem(position));
 
-        Intent intent = new Intent(getApplicationContext(), AddActivity.class);
+        Intent intent = new Intent(this, AddActivity.class);
         intent.putExtra("year", selectYear);
         intent.putExtra("month", selectMonth+1);
-        intent.putExtra("day", selectDay);
+        intent.putExtra("day", selectDay+position);
+        setResult(Activity.RESULT_OK, intent);  //인텐트 값이 넘어갔는지 체크
+
         Toast.makeText(getApplicationContext(),
-                (selectYear+"/"+(selectMonth+1)+"/"+dayList.get(position)), Toast.LENGTH_LONG).show();
+                (selectYear+"/"+(selectMonth+1)+"/"+(selectDay+position)), Toast.LENGTH_LONG).show();
         startActivity(intent);
     }
 
@@ -162,12 +175,12 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.previousBtn:
-                thisMonthCalendar = getLastMonth(thisMonthCalendar);
-                getCalendar(thisMonthCalendar);
+                Mcalendar = getLastMonth(Mcalendar);
+                getCalendar(Mcalendar);
                 break;
             case R.id.nextBtn:
-                thisMonthCalendar = getNexMonth(thisMonthCalendar);
-                getCalendar(thisMonthCalendar);
+                Mcalendar = getNextMonth(Mcalendar);
+                getCalendar(Mcalendar);
                 break;
         }
     }
