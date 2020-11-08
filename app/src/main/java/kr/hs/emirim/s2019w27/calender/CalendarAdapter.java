@@ -101,7 +101,7 @@ public class CalendarAdapter extends BaseAdapter {
 
     private int getCellHeightDP() {
         int height = context.getResources().getDisplayMetrics().heightPixels;
-        int cellHeight = (height-230) / 6;
+        int cellHeight = (height-230) / 7;
         return cellHeight;
     }
 }
