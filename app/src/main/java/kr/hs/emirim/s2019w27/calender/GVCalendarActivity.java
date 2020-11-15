@@ -8,8 +8,9 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+import kr.hs.emirim.s2019w27.calender.listView.ListActivity;
 
 public class GVCalendarActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
@@ -19,6 +20,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     private CalendarAdapter adapter;
     private ImageButton previousBtn, nextBtn;
     private Calendar thisMonthCalendar;
+    private ImageView goToListImg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +33,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         gridView = (GridView) findViewById(R.id.gridview);
         previousBtn = (ImageButton) findViewById(R.id.previousBtn);
         nextBtn = (ImageButton) findViewById(R.id.nextBtn);
-
+        goToListImg = (ImageView)findViewById(R.id.goToListImage);
         previousBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         gridView.setOnItemClickListener(this);
@@ -168,6 +170,10 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
             case R.id.nextBtn:
                 thisMonthCalendar = getNexMonth(thisMonthCalendar);
                 getCalendar(thisMonthCalendar);
+                break;
+            case R.id.goToListImage:
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
                 break;
         }
     }

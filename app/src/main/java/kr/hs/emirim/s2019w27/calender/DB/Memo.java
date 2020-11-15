@@ -1,11 +1,12 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.ArrayList;
+
 @Entity
-public class Memo {
+public class Memo extends ArrayList<Memo> {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String date;
