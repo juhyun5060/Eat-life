@@ -1,9 +1,19 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Update;
+import java.util.List;
+
+// return 받을 class 정의
+class listItem {
+    @ColumnInfo(name="title")
+    public String title;
+
+    @ColumnInfo(name="date")
+    public String date;
+}
 
 @Dao
 public interface MemoDAO {
@@ -23,6 +33,12 @@ public interface MemoDAO {
     @Query("SELECT imgUri FROM Memo")
     String getUri();
 
+    @Query("SELECT * FROM Memo")
+    List<Memo> getAll();
+
+    @Query("SELECT title, date FROM Memo")
+    List<listItem> getTD();
+
     @Insert
     void insert(Memo memo);
 
@@ -31,9 +47,6 @@ public interface MemoDAO {
 
     @Query("UPDATE Memo SET imgUri =  :imgUri")
     void updateUri(String imgUri);
-
-    @Update
-    void updateAll(Memo memo);
 
     @Query("DELETE FROM memo")
     void deleteAll();

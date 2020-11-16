@@ -8,8 +8,9 @@ import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
+
+import kr.hs.emirim.s2019w27.calender.listView.ListActivity;
 
 public class GVCalendarActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
@@ -18,6 +19,10 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     private ArrayList<DayInfo> dayList;
     private CalendarAdapter adapter;
     private ImageButton previousBtn, nextBtn;
+
+    private Calendar Mcalendar;
+    private ImageView goToListImg;
+
     private Calendar Mcalendar;
 
 //        // 오늘에 날짜를 세팅 해준다.
@@ -27,6 +32,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
 //        SimpleDateFormat YearFormat = new SimpleDateFormat("yyyy", Locale.KOREA);
 //        SimpleDateFormat MonthFormat = new SimpleDateFormat("mm", Locale.KOREA);
 //        SimpleDateFormat DayFormat = new SimpleDateFormat("dd", Locale.KOREA);
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,7 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
         gridView = (GridView) findViewById(R.id.gridview);
         previousBtn = (ImageButton) findViewById(R.id.previousBtn);
         nextBtn = (ImageButton) findViewById(R.id.nextBtn);
-
+        goToListImg = (ImageView)findViewById(R.id.goToListImage);
         previousBtn.setOnClickListener(this);
         nextBtn.setOnClickListener(this);
         gridView.setOnItemClickListener(this);
@@ -181,6 +187,10 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
             case R.id.nextBtn:
                 Mcalendar = getNextMonth(Mcalendar);
                 getCalendar(Mcalendar);
+                break;
+            case R.id.goToListImage:
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
                 break;
         }
     }
