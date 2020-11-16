@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.*;
 import android.widget.*;
-
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -14,10 +12,6 @@ public class CalendarAdapter extends BaseAdapter {
     private Context context;
     private int resource;
     private LayoutInflater inflater;
-    long now = System.currentTimeMillis();
-    final Date date = new Date(now);
-    SimpleDateFormat curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
-    String select_today = curDayFormat.format(date);
 
     public CalendarAdapter(Context context, int textResource, ArrayList<DayInfo> dayList) {
         this.context = context;
@@ -61,14 +55,10 @@ public class CalendarAdapter extends BaseAdapter {
 
         if (day != null) {
             dayViewHolder.tvDay.setText(day.getDay());
-//            Integer today = thisMonthCalendar.get(Calendar.DAY_OF_MONTH);
-//            String select_today = String.valueOf(today);
 
-
+            /*날짜별 색상 변경*/
             if (day.isInMonth()) {
-                if (select_today.equals(getItem(position))){
-                    dayViewHolder.tvDay.setTextColor(Color.CYAN);
-                } else if (position % 7 == 0) {
+                if (position % 7 == 0) {
                     dayViewHolder.tvDay.setTextColor(Color.RED);
                 } else if (position % 7 == 6) {
                     dayViewHolder.tvDay.setTextColor(Color.BLUE);
