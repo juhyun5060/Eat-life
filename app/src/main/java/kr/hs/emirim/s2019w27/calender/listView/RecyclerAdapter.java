@@ -1,12 +1,9 @@
 package kr.hs.emirim.s2019w27.calender.listView;
 
 
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
 import kr.hs.emirim.s2019w27.calender.R;
 
@@ -22,7 +18,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
 
     private ArrayList<Memo> memoData = new ArrayList<>();
-
 
     @NonNull
     @Override
