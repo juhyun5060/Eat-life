@@ -120,15 +120,19 @@ public class AddActivity extends AppCompatActivity {
                     memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
-                    db.memoDAO().deleteAll();
-//                    db.memoDAO().updateAll(new Memo(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString()));
+                    if(uri != null && !uri.equals(db.memoDAO().getUri())) {
+                        db.memoDAO().updateModify(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString());
+                        db.memoDAO().updateUri(uri.toString());
+                    } else {
+                        db.memoDAO().updateModify(categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString());
+                    }
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
                     memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                startActivity(intent);
+//                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+//                startActivity(intent);
             }
         });
 

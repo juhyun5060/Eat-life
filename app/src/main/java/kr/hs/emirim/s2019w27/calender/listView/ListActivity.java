@@ -61,7 +61,7 @@ public class ListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerAdapter();
 
-        int size = AppDatabase.getInstance(this).memoDAO().getAll().size();
+        int size = AppDatabase.getInstance(this).memoDAO().getTD().size();
         for(int i=0; i<size; i++) {
             adapter.addItems(AppDatabase.getInstance(this).memoDAO().getTD().get(i));
             System.out.println("####" + AppDatabase.getInstance(this).memoDAO().getTD().get(i));

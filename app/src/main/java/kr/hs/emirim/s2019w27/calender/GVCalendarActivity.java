@@ -23,8 +23,6 @@ public class GVCalendarActivity extends Activity implements AdapterView.OnItemCl
     private Calendar Mcalendar;
     private ImageView goToListImg;
 
-    private Calendar Mcalendar;
-
 //        // 오늘에 날짜를 세팅 해준다.
 //        long now = System.currentTimeMillis();
 //        final Date date = new Date(now);

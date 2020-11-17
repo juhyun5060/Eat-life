@@ -6,18 +6,12 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import java.util.List;
 
-// return 받을 class 정의
-class listItem {
-    @ColumnInfo(name="title")
-    public String title;
-
-    @ColumnInfo(name="date")
-    public String date;
-}
-
 @Dao
 public interface MemoDAO {
     //date 수정
+    @Query("SELECT id FROM Memo")
+    int getId();
+
     @Query("SELECT category FROM Memo")
     int getCategory();
 
@@ -36,8 +30,8 @@ public interface MemoDAO {
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
 
-    @Query("SELECT title, date FROM Memo")
-    List<listItem> getTD();
+    @Query("SELECT id, category, title, date FROM Memo")
+    List<Memo> getTD();
 
     @Insert
     void insert(Memo memo);
