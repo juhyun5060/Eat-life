@@ -1,5 +1,6 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;

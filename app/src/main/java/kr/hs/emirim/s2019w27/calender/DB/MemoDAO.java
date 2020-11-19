@@ -1,5 +1,6 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Insert;
@@ -30,8 +31,8 @@ public interface MemoDAO {
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
 
-    @Query("SELECT id, category, title, date FROM Memo")
-    List<Memo> getTD();
+    @Query("SELECT title, date FROM Memo")
+    List<MemoMinimal> getTD();
 
     @Insert
     void insert(Memo memo);
