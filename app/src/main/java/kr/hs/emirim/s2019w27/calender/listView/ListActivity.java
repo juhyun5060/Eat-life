@@ -22,11 +22,12 @@ import java.util.List;
 
 import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
+import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
 import kr.hs.emirim.s2019w27.calender.GVCalendarActivity;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class ListActivity extends AppCompatActivity {
-
+    // 리사이클러뷰
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter adapter;
@@ -61,10 +62,9 @@ public class ListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerAdapter();
 
-        int size = AppDatabase.getInstance(this).memoDAO().getTD().size();
+        int size = AppDatabase.getInstance(this).memoDAO().getAll().size();
         for(int i=0; i<size; i++) {
             adapter.addItems(AppDatabase.getInstance(this).memoDAO().getTD().get(i));
-            System.out.println("####" + AppDatabase.getInstance(this).memoDAO().getTD().get(i));
         }
     }
 

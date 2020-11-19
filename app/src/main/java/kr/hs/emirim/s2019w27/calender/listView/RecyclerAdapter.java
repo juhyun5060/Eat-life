@@ -12,12 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
+import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
 
-    private ArrayList<Memo> memoData = new ArrayList<>();
+    private ArrayList<MemoMinimal> memoData = new ArrayList<>();
 
     @NonNull
     @Override
@@ -36,7 +37,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return memoData.size();
     }
 
-    public void addItems(Memo memo) {
+    public void addItem(MemoMinimal memo) {
+        memoData.add(memo);
+        notifyDataSetChanged();
+    }
+
+    public void addItems(MemoMinimal memo) {
         memoData.add(memo);
         notifyDataSetChanged();
     }
@@ -55,8 +61,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 //            image = itemView.findViewById(R.id.listImg);
         }
 
-        public void onBind(Memo memo, int position) {
-//            String s = "" + (position+1);
+        public void onBind(MemoMinimal memo, int position) {
             title.setText(memo.getTitle());
             date.setText(memo.getDate());
 //            image.setImageResource(R.drawable.icon);

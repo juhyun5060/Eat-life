@@ -29,9 +29,11 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
+import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
 import kr.hs.emirim.s2019w27.calender.listView.ListActivity;
 
 public class AddActivity extends AppCompatActivity {
@@ -46,6 +48,7 @@ public class AddActivity extends AppCompatActivity {
     private Button saveButton;
     private ImageView addImage;
     private ImageView backButton;
+    private Button listButton;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -61,6 +64,7 @@ public class AddActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         addImage = findViewById(R.id.add_img_btn);
         backButton = findViewById(R.id.backButton);
+        listButton = findViewById(R.id.ListButton);
 
         final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
@@ -117,7 +121,6 @@ public class AddActivity extends AppCompatActivity {
                     db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
                     categorySpinner.setSelection(db.memoDAO().getCategory());
                     titleEditText.setText(db.memoDAO().getTitle());
-                    memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "저장되었습니다", Toast.LENGTH_SHORT).show();
                 } else {
                     if(uri != null && !uri.equals(db.memoDAO().getUri())) {
@@ -131,8 +134,6 @@ public class AddActivity extends AppCompatActivity {
                     memoEditText.setText(db.memoDAO().getMemo());
                     Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
-//                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-//                startActivity(intent);
             }
         });
 
@@ -140,7 +141,7 @@ public class AddActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.memoDAO().deleteAll();    // delete 수정하세영
+                db.memoDAO().deleteAll();
                 categorySpinner.setSelection(0);
                 titleEditText.setText("");
                 memoEditText.setText("");
@@ -157,6 +158,14 @@ public class AddActivity extends AppCompatActivity {
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            }
+        });
+
+        listButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+                startActivity(intent);
             }
         });
 
