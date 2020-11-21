@@ -18,8 +18,9 @@
         app:mcv_tileHeight="match_parent"
 
         app:mcv_selectionColor="#FF9800"
-        app:mcv_leftArrowMask = "@drawable/back"
-        app:mcv_rightArrowMask = "@drawable/next"
+        app:mcv_arrowColor="#FF984c"
+        app:mcv_leftArrowMask="@drawable/back"
+        app:mcv_rightArrowMask="@drawable/next"
         app:mcv_monthLabels="@array/custom_months"
         app:mcv_weekDayLabels="@array/custom_weekdays"
         app:mcv_dateTextAppearance="@style/CustomTextAppearance_date"
