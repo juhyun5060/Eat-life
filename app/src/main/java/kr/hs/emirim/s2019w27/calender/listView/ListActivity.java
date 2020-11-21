@@ -23,7 +23,7 @@ import java.util.List;
 import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
-import kr.hs.emirim.s2019w27.calender.GVCalendarActivity;
+import kr.hs.emirim.s2019w27.calender.MainActivity;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class ListActivity extends AppCompatActivity {
@@ -50,7 +50,7 @@ public class ListActivity extends AppCompatActivity {
         goToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), GVCalendarActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });

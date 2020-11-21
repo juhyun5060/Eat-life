@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
 
         app:mcv_showOtherDates="none"
-        app:mcv_tileSize="match_parent"
         app:mcv_tileWidth="match_parent"
-        app:mcv_tileHeight="match_parent"
 
         app:mcv_selectionColor="#FF9800"
         app:mcv_leftArrowMask = "@drawable/back"
@@ -27,11 +25,15 @@
         app:mcv_weekDayTextAppearance="@style/CustomTextAppearance_weekDay"
         app:mcv_headerTextAppearance="@style/CustomTextAppearance_header"
         />
+<!--    app:mcv_tileSize="match_parent"-->
+<!--    app:mcv_tileWidth="match_parent"-->
+<!--    app:mcv_tileHeight="match_parent"-->
+
     <!--하단 색상바-->
-    <!--    <TextView-->
-    <!--        android:id="@+id/colorBar"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_gravity="bottom"-->
-    <!--        android:background="@color/colorOrange" />-->
+    <TextView
+        android:id="@+id/colorBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorOrange" />
 </LinearLayout>
