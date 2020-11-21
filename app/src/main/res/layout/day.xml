@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_day">
 
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_selected_date"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:src="@drawable/bg_selected"-->
+<!--        android:visibility="invisible"/>-->
+
     <TextView
         android:id="@+id/tv_day"
         android:layout_width="wrap_content"

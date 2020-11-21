@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GVCalendarActivity"
+            android:name=".MainActivity"
             android:resizeableActivity="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>

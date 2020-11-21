@@ -4,4 +4,30 @@
     <string name="addMemo">오늘의 요리는 어떠셨나요?\n레시피 등 다양한 메모를 남겨보세요!\n\n\n</string>
     <string name="addSave">저장</string>
     <string name="addDelete">삭제</string>
+
+    <string-array name="custom_weekdays">
+        <item>SUN</item>
+        <item>MON</item>
+        <item>TUE</item>
+        <item>WED</item>
+        <item>THU</item>
+        <item>FRI</item>
+        <item>SAT</item>
+    </string-array>
+
+    <string-array name="custom_months">
+        <item>JAN</item>
+        <item>FEB</item>
+        <item>MAR</item>
+        <item>APR</item>
+        <item>MAY</item>
+        <item>JUN</item>
+        <item>JUL</item>
+        <item>AUG</item>
+        <item>SEP</item>
+        <item>OCT</item>
+        <item>NOV</item>
+        <item>DEC</item>
+    </string-array>
+
 </resources>

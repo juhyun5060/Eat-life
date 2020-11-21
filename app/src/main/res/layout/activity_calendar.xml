@@ -1,167 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp" >
 
-        <ImageView
-            android:id="@+id/goToListImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/list" />
+        app:mcv_showOtherDates="none"
+        app:mcv_tileWidth="match_parent"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:mcv_selectionColor="#FF9800"
+        app:mcv_leftArrowMask = "@drawable/back"
+        app:mcv_rightArrowMask = "@drawable/next"
+        app:mcv_monthLabels="@array/custom_months"
+        app:mcv_weekDayLabels="@array/custom_weekdays"
+        app:mcv_dateTextAppearance="@style/CustomTextAppearance_date"
+        app:mcv_weekDayTextAppearance="@style/CustomTextAppearance_weekDay"
+        app:mcv_headerTextAppearance="@style/CustomTextAppearance_header"
+        />
+<!--    app:mcv_tileSize="match_parent"-->
+<!--    app:mcv_tileWidth="match_parent"-->
+<!--    app:mcv_tileHeight="match_parent"-->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="8dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:background="#ffffff">
-
-        <ImageButton
-            android:id="@+id/previousBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/back"
-            android:layout_margin="10dp"/>
-        <TextView
-            android:id="@+id/currentDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="3"
-
-            android:text="CurrentDate"
-            android:textColor="@color/colorBlack"
-            android:textStyle="bold"
-            android:textSize="30sp"/>
-        <ImageButton
-            android:id="@+id/nextBtn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/next"
-            android:layout_margin="10dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="vertical">
-
-        <!--Day-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:background="@color/colorDay">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="SUN"
-                android:textColor="@color/colorRed"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="MON"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="TUE"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="WED"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="THU"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="FRI"
-                android:textColor="@color/colorBlack"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginTop="4dp"
-                android:gravity="center"
-                android:text="SAT"
-                android:textColor="@color/colorBlue"
-                android:textSize="15sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-        <!--CALENDAR-->
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:numColumns="7"
-            android:listSelector="@drawable/gv_selector">
-        </GridView>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--하단 색상바-->
+    <TextView
+        android:id="@+id/colorBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_alignParentBottom="false"
         android:layout_gravity="bottom"
-        android:background="#FF9800"
-        android:paddingBottom="0dp"
-        tools:layout_editor_absoluteY="666dp">
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        android:background="@color/colorOrange" />
 </LinearLayout>

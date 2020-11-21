@@ -10,4 +10,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="CustomTextAppearance_date" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="CustomTextAppearance_weekDay" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <style name="CustomTextAppearance_header" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
 </resources>
