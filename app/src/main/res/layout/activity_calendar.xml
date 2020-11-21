@@ -27,4 +27,8 @@
         app:mcv_weekDayTextAppearance="@style/CustomTextAppearance_weekDay"
         app:mcv_headerTextAppearance="@style/CustomTextAppearance_header"
         />
+
+<!--    app:mcv_tileSize="match_parent"-->
+<!--    app:mcv_tileWidth="match_parent"-->
+<!--    app:mcv_tileHeight="match_parent"-->
 </LinearLayout>
