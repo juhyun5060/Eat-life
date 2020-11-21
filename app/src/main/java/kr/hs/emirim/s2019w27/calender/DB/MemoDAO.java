@@ -9,24 +9,24 @@ import java.util.List;
 
 @Dao
 public interface MemoDAO {
-    //date 수정
-    @Query("SELECT id FROM Memo")
-    int getId();
 
-    @Query("SELECT category FROM Memo")
-    int getCategory();
+    @Query("SELECT id FROM Memo WHERE date = :date")
+    int getId(String date);
 
-    @Query("SELECT title FROM Memo")
-    String getTitle();
+    @Query("SELECT category FROM Memo WHERE date = :date")
+    int getCategory(String date);
 
-    @Query("SELECT memo FROM Memo")
-    String getMemo();
+    @Query("SELECT title FROM Memo WHERE date = :date")
+    String getTitle(String date);
 
-    @Query("SELECT date FROM Memo")
-    String getDate();
+    @Query("SELECT memo FROM Memo WHERE date = :date")
+    String getMemo(String date);
 
-    @Query("SELECT imgUri FROM Memo")
-    String getUri();
+    @Query("SELECT date FROM Memo WHERE date = :date")
+    String getDate(String date);
+
+    @Query("SELECT imgUri FROM Memo WHERE date = :date")
+    String getUri(String date);
 
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
