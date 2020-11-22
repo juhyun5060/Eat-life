@@ -86,7 +86,7 @@
         app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back1" />
 
     <Button
         android:id="@+id/saveButton"
