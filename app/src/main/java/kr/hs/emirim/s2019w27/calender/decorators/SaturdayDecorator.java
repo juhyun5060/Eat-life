@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 public class SaturdayDecorator implements DayViewDecorator {
     private final Calendar calendar = Calendar.getInstance();
-    public  SaturdayDecorator(){}
+    public SaturdayDecorator(){}
 
     @Override
     public boolean shouldDecorate(CalendarDay day) {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -26,10 +27,4 @@
         app:mcv_weekDayTextAppearance="@style/CustomTextAppearance_weekDay"
         app:mcv_headerTextAppearance="@style/CustomTextAppearance_header"
         />
-
-<!--    app:mcv_selectionColor="#FF9800"-->
-
-<!--    app:mcv_tileSize="match_parent"-->
-<!--    app:mcv_tileWidth="match_parent"-->
-<!--    app:mcv_tileHeight="match_parent"-->
 </LinearLayout>

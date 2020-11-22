@@ -34,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
 
-        materialCalendarView.addDecorators( new SaturdayDecorator(), new SundayDecorator(), new TodayDecorator() );
+        materialCalendarView.addDecorators( new BackgroundDecorator(this),
+                                            new SaturdayDecorator(),
+                                            new SundayDecorator(),
+                                            new TodayDecorator() );
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
