@@ -72,7 +72,7 @@ public class AddActivity extends AppCompatActivity {
 
         final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
-        final AppDatabase db = Room.databaseBuilder(this, AppDatabase.class, "memo-db").allowMainThreadQueries().fallbackToDestructiveMigration().build();
+        final AppDatabase db = AppDatabase.getInstance(this);
 
         // 갤러리 접근 권한
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -255,6 +255,3 @@ public class AddActivity extends AppCompatActivity {
     }
 
 }
-
-// 사진 선택, 데이터 불러오기 너무 느림 -> 해결하세요
-// 데이터 저장 후 이미지 말고 다른 것 수정할 시 이미지 bitmap nullPoint 오류 -> 수정

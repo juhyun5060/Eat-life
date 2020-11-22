@@ -31,8 +31,8 @@ public interface MemoDAO {
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
 
-    @Query("SELECT title, date FROM Memo")
-    List<MemoMinimal> getTD();
+    @Query("SELECT title, date, imgUri FROM Memo")
+    List<MemoMinimal> getListItem();
 
     @Insert
     void insert(Memo memo);

@@ -16,9 +16,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
@@ -33,6 +37,9 @@ public class ListActivity extends AppCompatActivity {
     private RecyclerAdapter adapter;
 
     private ImageView goToCalendar;
+    private TextView currentDate;
+    private ImageView btnBack;
+    private ImageView btnNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +52,36 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        currentDate = findViewById(R.id.currentDate);
         goToCalendar = findViewById(R.id.goToCalendarImg);
+        btnBack = findViewById(R.id.btn_back);
+        btnNext = findViewById(R.id.btn_next);
+
+        long now = System.currentTimeMillis();
+        final Date date = new Date(now);
+        SimpleDateFormat formateTime = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        String todayString = formateTime.format(date);
+        currentDate.setText(todayString);
 
         goToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
@@ -62,9 +92,9 @@ public class ListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerAdapter();
 
-        int size = AppDatabase.getInstance(this).memoDAO().getAll().size();
+        int size = AppDatabase.getInstance(this).memoDAO().getListItem().size();
         for(int i=0; i<size; i++) {
-            adapter.addItems(AppDatabase.getInstance(this).memoDAO().getTD().get(i));
+            adapter.addItems(AppDatabase.getInstance(this).memoDAO().getListItem().get(i));
         }
     }
 
