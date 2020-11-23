@@ -48,7 +48,6 @@ public class AddActivity extends AppCompatActivity {
     private Button saveButton;
     private ImageView addImage;
     private ImageView backButton;
-    private Button listButton;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -68,7 +67,6 @@ public class AddActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         addImage = findViewById(R.id.add_img_btn);
         backButton = findViewById(R.id.backButton);
-        listButton = findViewById(R.id.ListButton);
 
         final BitmapDrawable basicImg = (BitmapDrawable)getResources().getDrawable(R.drawable.add_img);
 
@@ -135,18 +133,23 @@ public class AddActivity extends AppCompatActivity {
                     Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
             }
+
+            // 값이 저장되고 activity가 종료될 때 리사이클러뷰 바로 갱신
+
+
         });
 
         // 삭제 버튼
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.memoDAO().deleteAll();
+                db.memoDAO().delete(date);
                 categorySpinner.setSelection(0);
                 titleEditText.setText("");
                 memoEditText.setText("");
                 addImage.setImageDrawable(basicImg);
                 Toast.makeText(AddActivity.this, "삭제되었습니다", Toast.LENGTH_SHORT).show();
+                
             }
         });
 
@@ -160,15 +163,6 @@ public class AddActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
-
-        listButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
