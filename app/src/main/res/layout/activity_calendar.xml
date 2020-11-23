@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".MainActivity">
 
+    <!--맨 위에 리스트뷰 넘어가는 아이콘추가하기-->
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/calendarView"
@@ -17,7 +19,6 @@
         app:mcv_tileWidth="match_parent"
         app:mcv_tileHeight="match_parent"
 
-        app:mcv_selectionColor="#FF9800"
         app:mcv_arrowColor="#FF984c"
         app:mcv_leftArrowMask="@drawable/back"
         app:mcv_rightArrowMask="@drawable/next"

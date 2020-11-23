@@ -79,14 +79,14 @@
 
     <ImageView
         android:id="@+id/backButton"
-        android:layout_width="15dp"
-        android:layout_height="16dp"
+        android:layout_width="26dp"
+        android:layout_height="27dp"
         app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back" />
+        app:srcCompat="@drawable/back1" />
 
     <Button
         android:id="@+id/saveButton"

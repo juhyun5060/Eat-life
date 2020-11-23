@@ -13,10 +13,10 @@
     <style name="CustomTextAppearance_date" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textColor">@color/colorBlack</item>
     </style>
-    <style name="CustomTextAppearance_weekDay" parent="TextAppearance.AppCompat.Title">
+    <style name="CustomTextAppearance_weekDay" parent="TextAppearance.AppCompat.Medium.Inverse">
         <item name="android:textColor">@color/colorBlack</item>
     </style>
-    <style name="CustomTextAppearance_header" parent="TextAppearance.AppCompat.Title">
+    <style name="CustomTextAppearance_header" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 </resources>
