@@ -1,6 +1,7 @@
 package kr.hs.emirim.s2019w27.calender.listView;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
 import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
+import kr.hs.emirim.s2019w27.calender.MainActivity;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
@@ -66,6 +68,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             title.setText(memo.getTitle());
             date.setText(memo.getDate());
             image.setImageURI(Uri.parse(memo.getImgUri()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(itemView.getContext(), AddActivity.class);
+                    intent.putExtra("Date", date.getText().toString());
+                    itemView.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }

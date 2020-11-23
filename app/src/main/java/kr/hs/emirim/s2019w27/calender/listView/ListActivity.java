@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -59,9 +60,9 @@ public class ListActivity extends AppCompatActivity {
 
         long now = System.currentTimeMillis();
         final Date date = new Date(now);
-        SimpleDateFormat formateTime = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
-        String todayString = formateTime.format(date);
-        currentDate.setText(todayString);
+        final SimpleDateFormat dateString = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        final Calendar cal = Calendar.getInstance();
+        currentDate.setText(dateString.format(date));
 
         goToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,16 +75,20 @@ public class ListActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                cal.add(cal.MONTH, -1);
+                currentDate.setText(dateString.format(cal.getTime()));
             }
         });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                cal.add(cal.MONTH, +1);
+                currentDate.setText(dateString.format(cal.getTime()));
             }
         });
+
+
 
     }
 
