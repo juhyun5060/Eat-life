@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import kr.hs.emirim.s2019w27.calender.decorators.*;
@@ -15,9 +18,12 @@ import com.prolificinteractive.materialcalendarview.CalendarMode;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+//import kr.hs.emirim.s2019w27.calender.listView.*;
+
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    ImageView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
 
         MaterialCalendarView materialCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
+        lv = findViewById(R.id.listview);
+        lv.setOnClickListener(new ImageView.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, kr.hs.emirim.s2019w27.calender.listView.ListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         materialCalendarView.state().edit()
                 .setFirstDayOfWeek(Calendar.SUNDAY)
@@ -34,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
 
 
-        materialCalendarView.addDecorators( new BackgroundDecorator(this),
-                                            new SaturdayDecorator(),
+        materialCalendarView.addDecorators( new SaturdayDecorator(),
                                             new SundayDecorator(),
                                             new TodayDecorator() );
 
@@ -66,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 //                intent.putExtras(bundle);
 //                startActivity(intent);
 
-                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
