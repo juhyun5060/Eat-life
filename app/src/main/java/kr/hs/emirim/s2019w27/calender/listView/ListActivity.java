@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,27 +43,36 @@ public class ListActivity extends AppCompatActivity {
     private ImageView btnBack;
     private ImageView btnNext;
 
+    private String start_date;
+    private String end_date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        currentDate = findViewById(R.id.currentDate);
+
+        long now = System.currentTimeMillis();
+        final Date date = new Date(now);
+        final SimpleDateFormat dateString = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
+        final SimpleDateFormat dateString_db = new SimpleDateFormat("yyyy/MM/", Locale.getDefault());
+        final Calendar cal = Calendar.getInstance();
+
+        start_date = dateString_db.format(date) + "1";
+        end_date = dateString_db.format(date) + "31";
+
+        currentDate.setText(dateString.format(date));
+
         initialized();
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        currentDate = findViewById(R.id.currentDate);
         goToCalendar = findViewById(R.id.goToCalendarImg);
         btnBack = findViewById(R.id.btn_back);
         btnNext = findViewById(R.id.btn_next);
-
-        long now = System.currentTimeMillis();
-        final Date date = new Date(now);
-        final SimpleDateFormat dateString = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
-        final Calendar cal = Calendar.getInstance();
-        currentDate.setText(dateString.format(date));
 
         goToCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +86,10 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cal.add(cal.MONTH, -1);
+                start_date = dateString_db.format(cal.getTime()) + "1";
+                end_date = dateString_db.format(cal.getTime()) + "31";
                 currentDate.setText(dateString.format(cal.getTime()));
+                Toast.makeText(ListActivity.this, start_date + ", " + end_date, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,12 +97,12 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 cal.add(cal.MONTH, +1);
+                start_date = dateString_db.format(cal.getTime()) + "1";
+                end_date = dateString_db.format(cal.getTime()) + "31";
                 currentDate.setText(dateString.format(cal.getTime()));
+                Toast.makeText(ListActivity.this, start_date + ", " + end_date, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
 
     private void initialized() {
@@ -97,9 +110,9 @@ public class ListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerAdapter();
 
-        int size = AppDatabase.getInstance(this).memoDAO().getListItem().size();
+        int size = AppDatabase.getInstance(this).memoDAO().getListItem(start_date, end_date).size();
         for(int i=0; i<size; i++) {
-            adapter.addItems(AppDatabase.getInstance(this).memoDAO().getListItem().get(i));
+            adapter.addItems(AppDatabase.getInstance(this).memoDAO().getListItem(start_date, end_date).get(i));
         }
     }
 

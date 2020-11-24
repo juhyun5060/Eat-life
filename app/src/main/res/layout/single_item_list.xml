@@ -38,6 +38,7 @@
         android:id="@+id/listImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
         android:src="@mipmap/ic_launcher"/>
 
 </LinearLayout>
