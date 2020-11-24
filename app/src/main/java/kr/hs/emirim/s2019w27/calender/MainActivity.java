@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 int Day = clickDay.get(Calendar.DAY_OF_MONTH);
 
                 String Date = String.valueOf(Year+"/"+Month+"/"+Day);
-                Toast.makeText(MainActivity.this, Date, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, Date, Toast.LENGTH_SHORT).show();
                 Log.i("Date Log", Date+"");
 
 
