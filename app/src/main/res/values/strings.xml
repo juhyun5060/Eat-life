@@ -5,17 +5,7 @@
     <string name="addSave">저장</string>
     <string name="addDelete">삭제</string>
 
-    <string-array name="custom_weekdays">
-        <item>S</item>
-        <item>M</item>
-        <item>T</item>
-        <item>W</item>
-        <item>T</item>
-        <item>F</item>
-        <item>S</item>
-    </string-array>
-
-    <string-array name="custom_months">
+    <array name="material_calendar_months_array">
         <item>JAN</item>
         <item>FEB</item>
         <item>MAR</item>
@@ -28,6 +18,13 @@
         <item>OCT</item>
         <item>NOV</item>
         <item>DEC</item>
-    </string-array>
+    </array>
 
+    <string name="material_calendar_monday">M</string>
+    <string name="material_calendar_tuesday">T</string>
+    <string name="material_calendar_wednesday">W</string>
+    <string name="material_calendar_thursday">T</string>
+    <string name="material_calendar_friday">F</string>
+    <string name="material_calendar_saturday">S</string>
+    <string name="material_calendar_sunday">S</string>
 </resources>

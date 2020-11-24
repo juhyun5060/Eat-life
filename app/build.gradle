@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -31,5 +36,7 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.2.5'
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation "com.github.prolificinteractive:material-calendarview:1.4.3"
+
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+//    implementation "com.github.prolificinteractive:material-calendarview:1.4.3"
 }

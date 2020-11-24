@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,26 +11,24 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import kr.hs.emirim.s2019w27.calender.decorators.*;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.CalendarMode;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.applandeo.materialcalendarview.*;
+import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 
-//import kr.hs.emirim.s2019w27.calender.listView.*;
-
-import java.util.Calendar;
+import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
-    ImageView lv;
+    private CalendarView calendarview;
+//    private List<EventDay> mEventDays = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
 
-        MaterialCalendarView materialCalendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
-        lv = findViewById(R.id.listview);
+        calendarview = (CalendarView) findViewById(R.id.calendarView);
+        calendarview.showCurrentMonthPage();
+
+        ImageView lv = findViewById(R.id.listview);
         lv.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,46 +37,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        materialCalendarView.state().edit()
-                .setFirstDayOfWeek(Calendar.SUNDAY)
-                .setMinimumDate(CalendarDay.from(1900, 1, 1))
-                .setMaximumDate(CalendarDay.from(3000, 1, 1))
-                .setCalendarDisplayMode(CalendarMode.MONTHS)
-                .commit();
-
-
-        materialCalendarView.addDecorators( new SaturdayDecorator(),
-                                            new SundayDecorator(),
-                                            new TodayDecorator() );
-
-        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+        calendarview.setOnDayClickListener(new OnDayClickListener() {
             @Override
-            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
-                int Year = date.getYear();
-                int Month = date.getMonth() + 1;
-                int Day = date.getDay();
+            public void onDayClick(EventDay eventDay) {
+                Calendar clickDay = eventDay.getCalendar();
+                int Year = clickDay.get(Calendar.YEAR);
+                int Month = clickDay.get(Calendar.MONTH)+1;
+                int Day = clickDay.get(Calendar.DAY_OF_MONTH);
 
-                Log.i("Year", Year + "");
-                Log.i("Month", Month + "");
-                Log.i("Day", Day + "");
-
-                String selectedDate = Year + "/" + Month + "/" + Day;
-
-                Log.i("selectedDate", selectedDate + "");
-//                materialCalendarView.clearSelection();
+                String Date = String.valueOf(Year+"/"+Month+"/"+Day);
+                Toast.makeText(MainActivity.this, Date, Toast.LENGTH_SHORT).show();
+                Log.i("Date Log", Date+"");
 
 
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                intent.putExtra("Date", selectedDate);
+                intent.putExtra("Date", Date);
                 setResult(Activity.RESULT_OK, intent);  //인텐트 값이 넘어갔는지 체크
-
-//                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putString("Data", String.valueOf(date));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-
-//                Toast.makeText(MainActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
