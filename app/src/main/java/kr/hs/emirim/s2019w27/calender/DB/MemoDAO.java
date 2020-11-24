@@ -31,11 +31,11 @@ public interface MemoDAO {
     @Query("SELECT * FROM Memo")
     List<Memo> getAll();
 
-    @Query("SELECT title, date, imgUri FROM Memo")
-    List<MemoMinimal> getListItem();
+//    @Query("SELECT title, date, imgUri FROM Memo")
+//    List<MemoMinimal> getListItem();
 
-//    @Query("SELECT title, date, imgUri FROM Memo WHERE date BETWEEN :startDate and :endDate")
-//    List<MemoMinimal> getListItem(String startDate, String endDate);
+    @Query("SELECT title, date, imgUri FROM Memo WHERE date BETWEEN :startDate and :endDate")
+    List<MemoMinimal> getListItem(String startDate, String endDate);
 
     @Insert
     void insert(Memo memo);
