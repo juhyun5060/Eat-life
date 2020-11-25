@@ -24,11 +24,13 @@
         app:type="one_day_picker"
         app:eventsEnabled="true"
 
+        app:pagesColor="@color/colorWhite"
+        app:headerColor="@color/colorWhite"
         app:todayLabelColor="#FF984c"
         app:selectionColor="#FF984c"
-        app:headerColor="@color/colorWhite"
         app:headerLabelColor="@color/colorBlack"
         app:daysLabelsColor="@color/colorBlack"
+        app:anotherMonthsDaysLabelsColor="#807E7E"
         app:abbreviationsBarColor="@color/colorDay"
         app:abbreviationsLabelsColor="@color/colorBlack"/>
 </LinearLayout>

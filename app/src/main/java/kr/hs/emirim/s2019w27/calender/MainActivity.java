@@ -18,7 +18,7 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
     private CalendarView calendarview;
-//    private List<EventDay> mEventDays = new ArrayList<>();
+    private List<EventDay> events = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
