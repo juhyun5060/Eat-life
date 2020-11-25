@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Eat-life</string>
+
     <string name="addTitle">제목</string>
     <string name="addMemo">"오늘의 요리는 어떠셨나요? 레시피 등 다양한 메모를 남겨보세요!   "</string>
     <string name="addSave">저장</string>
@@ -19,7 +21,6 @@
         <item>NOV</item>
         <item>DEC</item>
     </string-array>
-
     <string name="material_calendar_monday">MON</string>
     <string name="material_calendar_tuesday">TUE</string>
     <string name="material_calendar_wednesday">WED</string>
