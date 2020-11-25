@@ -28,23 +28,17 @@ public interface MemoDAO {
     @Query("SELECT imgUri FROM Memo WHERE date = :date")
     String getUri(String date);
 
-    @Query("SELECT * FROM Memo")
-    List<Memo> getAll();
-
-//    @Query("SELECT title, date, imgUri FROM Memo")
-//    List<MemoMinimal> getListItem();
-
     @Query("SELECT title, date, imgUri FROM Memo WHERE date BETWEEN :startDate and :endDate")
     List<MemoMinimal> getListItem(String startDate, String endDate);
 
     @Insert
     void insert(Memo memo);
 
-    @Query("UPDATE Memo SET category =  :category, title = :title, memo = :memo")
-    void updateModify(int category, String title, String memo);
+    @Query("UPDATE Memo SET category =  :category, title = :title, memo = :memo WHERE date = :date")
+    void updateModify(int category, String title, String memo, String date);
 
-    @Query("UPDATE Memo SET imgUri =  :imgUri")
-    void updateUri(String imgUri);
+    @Query("UPDATE Memo SET imgUri =  :imgUri WHERE date = :date")
+    void updateUri(String imgUri, String date);
 
     @Query("DELETE FROM memo WHERE date = :date")
     void delete(String date);

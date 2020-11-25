@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         final Date date = new Date(now);
         final SimpleDateFormat dateString = new SimpleDateFormat("MMM yyyy", Locale.ENGLISH);
-        final SimpleDateFormat dateString_db = new SimpleDateFormat("yyyy/MM/", Locale.getDefault());
+        final SimpleDateFormat dateString_db = new SimpleDateFormat("yyyy/M/", Locale.getDefault());
         final Calendar cal = Calendar.getInstance();
 
         start_date = dateString_db.format(date) + "1";
@@ -66,9 +66,6 @@ public class ListActivity extends AppCompatActivity {
         currentDate.setText(dateString.format(date));
 
         initialized();
-
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
 
         goToCalendar = findViewById(R.id.goToCalendarImg);
         btnBack = findViewById(R.id.btn_back);
@@ -85,22 +82,28 @@ public class ListActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listRefresh();
+
                 cal.add(cal.MONTH, -1);
                 start_date = dateString_db.format(cal.getTime()) + "1";
                 end_date = dateString_db.format(cal.getTime()) + "31";
                 currentDate.setText(dateString.format(cal.getTime()));
-                Toast.makeText(ListActivity.this, start_date + ", " + end_date, Toast.LENGTH_SHORT).show();
+
+                initialized();
             }
         });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                listRefresh();
+
                 cal.add(cal.MONTH, +1);
                 start_date = dateString_db.format(cal.getTime()) + "1";
                 end_date = dateString_db.format(cal.getTime()) + "31";
                 currentDate.setText(dateString.format(cal.getTime()));
-                Toast.makeText(ListActivity.this, start_date + ", " + end_date, Toast.LENGTH_SHORT).show();
+
+                initialized();
             }
         });
     }
@@ -110,10 +113,18 @@ public class ListActivity extends AppCompatActivity {
         linearLayoutManager = new LinearLayoutManager(this);
         adapter = new RecyclerAdapter();
 
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+
         int size = AppDatabase.getInstance(this).memoDAO().getListItem(start_date, end_date).size();
         for(int i=0; i<size; i++) {
             adapter.addItems(AppDatabase.getInstance(this).memoDAO().getListItem(start_date, end_date).get(i));
         }
+    }
+
+    private void listRefresh() {
+        recyclerView.removeAllViewsInLayout();
+        recyclerView.setAdapter(adapter);
     }
 
 }
