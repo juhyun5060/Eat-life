@@ -1,39 +1,26 @@
 package kr.hs.emirim.s2019w27.calender.listView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import kr.hs.emirim.s2019w27.calender.AddActivity;
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
-import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
 import kr.hs.emirim.s2019w27.calender.MainActivity;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class ListActivity extends AppCompatActivity {
-    // 리사이클러뷰
+    // 리사이클러뷰 -> 수정하거나 삭제하면 바로 갱신 안됨 - 수정하세요
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private RecyclerAdapter adapter;
