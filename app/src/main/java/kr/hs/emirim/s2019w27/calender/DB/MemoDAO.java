@@ -8,9 +8,6 @@ import java.util.List;
 @Dao
 public interface MemoDAO {
 
-    @Query("SELECT id FROM Memo WHERE date = :date")
-    int getId(String date);
-
     @Query("SELECT category FROM Memo WHERE date = :date")
     int getCategory(String date);
 
@@ -20,14 +17,14 @@ public interface MemoDAO {
     @Query("SELECT memo FROM Memo WHERE date = :date")
     String getMemo(String date);
 
-    @Query("SELECT date FROM Memo WHERE date = :date")
-    String getDate(String date);
-
     @Query("SELECT imgUri FROM Memo WHERE date = :date")
     String getUri(String date);
 
     @Query("SELECT title, date, imgUri FROM Memo WHERE date BETWEEN :startDate and :endDate")
     List<MemoMinimal> getListItem(String startDate, String endDate);
+
+    @Query("SELECT imgUri FROM Memo")
+    List<SliderItem> getimages();
 
     @Insert
     void insert(Memo memo);

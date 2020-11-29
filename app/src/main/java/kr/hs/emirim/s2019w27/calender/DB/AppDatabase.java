@@ -1,7 +1,6 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;

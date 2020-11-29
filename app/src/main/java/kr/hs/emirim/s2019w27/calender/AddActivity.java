@@ -19,16 +19,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.exifinterface.media.ExifInterface;
 import androidx.loader.content.CursorLoader;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
 
@@ -133,10 +130,6 @@ public class AddActivity extends AppCompatActivity {
                 }
 
             }
-
-            // 값이 저장되고 activity가 종료될 때 리사이클러뷰 바로 갱신
-
-
         });
 
         // 삭제 버튼

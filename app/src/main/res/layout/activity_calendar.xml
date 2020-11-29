@@ -19,16 +19,13 @@
         android:layout_gravity="right"
         android:src="@drawable/list"/>
 
-
     <!-- 캘린더 설정 -->
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         app:type="one_day_picker"
         app:eventsEnabled="true"
-
         app:pagesColor="@color/colorWhite"
         app:headerColor="@color/colorWhite"
         app:todayLabelColor="#FF984c"
@@ -39,4 +36,13 @@
         app:abbreviationsBarColor="@color/colorDay"
         app:abbreviationsLabelsColor="@color/colorBlack"/>
 
+    <Button
+        android:id="@+id/gallerybtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Eat-Life Gallery"/>
+  
 </LinearLayout>
