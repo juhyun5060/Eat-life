@@ -1,4 +1,14 @@
 <h1>잇프 (Eat Life)</h1>
+자신이 만든 요리를 원하는 날짜에 내용과 사진을 업로드하여 달력 형식과 리스트 형식으로 볼 수 있는 앱입니다.  
+
+<h2>MAIN</h2> 
+
+  
+<h2>Information</h2>
+
+제작 기간 : 20200826 ~ 20201130  
+개발 환경 : Android Studio  
+사용 언어 : Java, SQLite  
 
 <h2>License</h2>
 
