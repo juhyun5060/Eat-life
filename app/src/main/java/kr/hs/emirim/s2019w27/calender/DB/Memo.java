@@ -1,11 +1,7 @@
 package kr.hs.emirim.s2019w27.calender.DB;
 
-import androidx.annotation.Nullable;
-import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
 import java.util.ArrayList;
 
 @Entity
@@ -38,41 +34,20 @@ public class Memo extends ArrayList<Memo> {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     public int getCategory() {
         return category;
-    }
-
-    public void setCategory(int category) {
-        this.category = category;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getMemo() {
         return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
     }
 
     public String getImgUri() {
         return imgUri;
     }
-
-    public void setImgUri(String imgUri) {
-        this.imgUri = imgUri;
-    }
-
 }
 
