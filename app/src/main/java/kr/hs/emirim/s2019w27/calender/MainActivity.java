@@ -18,8 +18,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
+
 public class MainActivity extends AppCompatActivity {
-    CalendarView calendarview;
+    private CalendarView calendarview;
+    private String Date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calendar);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); //화면 꺼짐 방지
 
-        List<EventDay> events = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-        events.add(new EventDay(calendar, R.drawable.icon));
-
         calendarview = (CalendarView) findViewById(R.id.calendarView);
-        calendarview.setEvents(events);
         calendarview.showCurrentMonthPage();
 
 
@@ -56,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 int Month = clickDay.get(Calendar.MONTH)+1;
                 int Day = clickDay.get(Calendar.DAY_OF_MONTH);
 
-                String Date = String.valueOf(Year+"/"+Month+"/"+Day);
+                Date = String.valueOf(Year+"/"+Month+"/"+Day);
 //                Toast.makeText(MainActivity.this, Date, Toast.LENGTH_SHORT).show();
                 Log.i("Date Log", Date+"");
 
@@ -67,5 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // 사진 추가
+        final AppDatabase db = AppDatabase.getInstance(this);
+        List<EventDay> events = new ArrayList<>();
+
+        Calendar calendar = Calendar.getInstance();
+//        String imgUri = db.memoDAO().getUri(Date);
+
+        events.add(new EventDay(calendar, R.drawable.add_img));
+
+        calendarview.setEvents(events);
     }
 }

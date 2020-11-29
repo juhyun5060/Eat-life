@@ -2,8 +2,6 @@ package kr.hs.emirim.s2019w27.calender.listView;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,14 +12,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import kr.hs.emirim.s2019w27.calender.AddActivity;
-import kr.hs.emirim.s2019w27.calender.DB.Memo;
 import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
-import kr.hs.emirim.s2019w27.calender.MainActivity;
 import kr.hs.emirim.s2019w27.calender.R;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {

@@ -3,10 +3,10 @@ package kr.hs.emirim.s2019w27.calender;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
-import androidx.room.Room;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -29,12 +29,9 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 import kr.hs.emirim.s2019w27.calender.DB.Memo;
-import kr.hs.emirim.s2019w27.calender.DB.MemoMinimal;
-import kr.hs.emirim.s2019w27.calender.listView.ListActivity;
 
 public class AddActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 0;
@@ -98,7 +95,8 @@ public class AddActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -106,13 +104,15 @@ public class AddActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+//                // 수정필요
 //                if (categorySpinner.getSelectedItemPosition() == 0) {
 //                    Toast.makeText(AddActivity.this, "카테고리를 입력하세요", Toast.LENGTH_SHORT).show();
-//                } else if (titleEditText.getText().toString().equals("")) {
+//                } else if (titleEditText.getText().toString() == null) {
 //                    Toast.makeText(AddActivity.this, "제목을 입력하세요", Toast.LENGTH_SHORT).show();
-//                } else if (memoEditText.getText().toString().equals("")) {
+//                } else if (memoEditText.getText().toString() == null) {
 //                    Toast.makeText(AddActivity.this, "메모를 입력하세요", Toast.LENGTH_SHORT).show();
-//                }   // 수정필요
+//                }
 
                 if(db.memoDAO().getTitle(date) == null) {
                     db.memoDAO().insert(new Memo(date, categorySpinner.getSelectedItemPosition(), titleEditText.getText().toString(), memoEditText.getText().toString(), uri.toString()));
@@ -132,6 +132,7 @@ public class AddActivity extends AppCompatActivity {
                     memoEditText.setText(db.memoDAO().getMemo(date));
                     Toast.makeText(AddActivity.this, "수정되었습니다", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             // 값이 저장되고 activity가 종료될 때 리사이클러뷰 바로 갱신
@@ -248,4 +249,10 @@ public class AddActivity extends AppCompatActivity {
         return bitmap;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }
