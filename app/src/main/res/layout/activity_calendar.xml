@@ -11,7 +11,7 @@
 
     <!-- 리스트뷰로 넘어가는 아이콘 -->
     <ImageView
-        android:id="@+id/listview"
+        android:id="@+id/listView"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginTop="20dp"
@@ -19,11 +19,12 @@
         android:layout_gravity="right"
         android:src="@drawable/list"/>
 
+
     <!-- 캘린더 설정 -->
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
 
         app:type="one_day_picker"
         app:eventsEnabled="true"
@@ -37,4 +38,46 @@
         app:anotherMonthsDaysLabelsColor="#807E7E"
         app:abbreviationsBarColor="@color/colorDay"
         app:abbreviationsLabelsColor="@color/colorBlack"/>
+
+
+    <!--  날짜 선택시 해당 날짜에 있는 메모를 보여줌  -->
+    <!--  백그라운드 이미지 추가하기!  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
+        android:visibility="invisible"
+        android:layout_marginBottom="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.5"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/tvTitle"
+                android:gravity="start"
+                android:layout_weight="1"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tvContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left"
+                android:layout_weight="0.5"
+                android:text="@string/tvContent"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:src="@drawable/icon"/>
+    </LinearLayout>
 </LinearLayout>

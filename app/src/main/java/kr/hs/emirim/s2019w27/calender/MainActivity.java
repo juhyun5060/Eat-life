@@ -14,11 +14,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import kr.hs.emirim.s2019w27.calender.DB.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private CalendarView calendarview;
@@ -35,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // 오른쪽 상단에 있는 아이콘 제어
-        ImageView lv = findViewById(R.id.listview);
+        ImageView lv = findViewById(R.id.listView);
         lv.setOnClickListener(new ImageView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,16 +60,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // 사진 추가
-        final AppDatabase db = AppDatabase.getInstance(this);
-        List<EventDay> events = new ArrayList<>();
-
-        Calendar calendar = Calendar.getInstance();
-//        String imgUri = db.memoDAO().getUri(Date);
-
-        events.add(new EventDay(calendar, R.drawable.add_img));
-
-        calendarview.setEvents(events);
     }
 }
