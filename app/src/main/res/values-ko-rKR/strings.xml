@@ -7,9 +7,6 @@
     <string name="addSave">저장</string>
     <string name="addDelete">삭제</string>
 
-    <string name="tvTitle">제목</string>
-    <string name="tvContent">해당 날짜에 메모가 없습니다.</string>
-
     <string-array name="material_calendar_months_array">
         <item>JAN</item>
         <item>FEB</item>
