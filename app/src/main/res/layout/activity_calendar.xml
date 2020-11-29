@@ -7,15 +7,18 @@
     android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <!-- 리스트뷰로 넘어가는 아이콘 -->
     <ImageView
         android:id="@+id/listview"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
         android:layout_gravity="right"
         android:src="@drawable/list"/>
 
+    <!-- 캘린더 설정 -->
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
